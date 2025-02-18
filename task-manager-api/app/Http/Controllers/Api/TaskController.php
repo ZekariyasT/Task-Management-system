@@ -5,6 +5,8 @@ use App\Http\Resources\TaskResource;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
@@ -14,17 +16,9 @@ class TaskController extends Controller
         return TaskResource::collection($tasks);
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,in_progress,completed',
-            'due_date' => 'nullable|date',
-            'priority' => 'required|integer|min:1|max:5',
-        ]);
-
-        $task = $request->user()->tasks()->create($request->all());
+        $task = $request->user()->tasks()->create($request->validated());
         return new TaskResource($task);
     }
 
@@ -33,20 +27,9 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        $this->authorize('update', $task);
-
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'sometimes|required|in:pending,in_progress,completed',
-            'due_date' => 'nullable|date',
-            'priority' => 'sometimes|required|integer|min:1|max:5',
-        ]);
-
-        $task->update($validated);
-
+        $task->update($request->validated());
         return new TaskResource($task);
     }
 
