@@ -1,9 +1,15 @@
 import { create } from "zustand";
 
+interface User {
+  id: number;
+  name: string; // Ensure 'name' exists
+  email: string;
+}
+
 interface AuthState {
-  user: unknown;
+  user: User | null;
   isAuthenticated: boolean;
-  login: (user: unknown) => void;
+  login: (user: User) => void;
   logout: () => void;
 }
 
