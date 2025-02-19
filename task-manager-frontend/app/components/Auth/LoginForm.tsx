@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginUser } from "@/app/services/auth";
 import { useAuthStore } from "@/app/store/authStore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; // Correct import
 
 // Define the types for the form data and user response
 interface LoginFormData {
