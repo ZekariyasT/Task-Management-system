@@ -1,11 +1,11 @@
 "use server";
 
-import Login from "./login/page";
+import DashboardPage from "./dashboard";
 
 export default async function Home() {
   return (
     <div>
-      <Login />
+      <DashboardPage />
     </div>
   );
 }

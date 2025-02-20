@@ -1,5 +1,6 @@
+"use client";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore"; // For checking authentication status
 import TaskList from "@/app/components/Tasks/TaskList"; // Import TaskList to show tasks
 
